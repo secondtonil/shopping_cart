@@ -10,8 +10,10 @@ export default class ProductsDashboard extends React.Component {
   }
 
   addProductToCart = (id) => {
+    let updated_cart = this.state.cart;
     let new_data = this.state.productData.map((item) => {
       if (item.id == id) {
+        updated_cart.push(item);
         return Object.assign({}, item, {
           quantity: item.quantity - 1,
         });
@@ -19,7 +21,8 @@ export default class ProductsDashboard extends React.Component {
       return item;
     });
     this.setState({
-      productData: new_data
+      productData: new_data,
+      cart: updated_cart,
     });
   };
 
@@ -29,7 +32,9 @@ export default class ProductsDashboard extends React.Component {
 
         <header>
           <h1>The Shop!</h1>
-          <Cart />
+          <Cart
+            cart={this.state.cart}
+          />
         </header>
 
         <main>
